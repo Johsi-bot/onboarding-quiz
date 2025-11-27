@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <title>公隆新手村快速通關問答！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h1>公隆新手村快速通關問答！</h1>
+
+      <p id="description">
+        請憑您對簡報的印象回答下列問題，快速融入我們的 Kelly Family 吧！
+      </p>
+
+      <!-- 開始畫面 -->
+      <div id="start-screen">
+        <p>按下開始進入測驗！</p>
+        <button id="start-btn">開始遊戲</button>
+      </div>
+
+      <!-- 測驗進行畫面 -->
+      <div id="quiz-screen" class="hidden">
+        <div id="question-container">
+          <h2 id="question">題目會出現在這裡</h2>
+        </div>
+
+        <div id="answer-buttons" class="btn-grid">
+          <!-- 選項按鈕由 script.js 動態產生 -->
+        </div>
+
+        <div id="bottom-bar">
+          <span id="question-number">第 1 題</span>
+          <span id="score">分數：0</span>
+          <button id="next-btn" class="hidden">下一題</button>
+        </div>
+      </div>
+
+      <!-- 結束畫面 -->
+      <div id="end-screen" class="hidden">
+        <h2>遊戲結束！</h2>
+        <p id="final-score">你的分數是：0</p>
+        <button id="restart-btn">再玩一次</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
 
