@@ -117,13 +117,23 @@ const scoreElement = document.getElementById("score");
 const finalScoreElement = document.getElementById("final-score");
 const finalMessageElement = document.getElementById("final-message");
 
-// 新增：開場白那段文字
+// 開場白那段文字（只在一開始用）
 const descriptionElement = document.getElementById("description");
 
 // ---- 狀態變數 ----
 let currentQuestionIndex = 0;
 let score = 0;
 let answered = false;
+
+// ---- 工具函式：洗牌（Fisher–Yates Shuffle）----
+function shuffleArray(array) {
+  const result = array.slice(); // 複製一份，不動到原本的
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 // ---- 事件綁定 ----
 startBtn.addEventListener("click", startGame);
@@ -140,7 +150,7 @@ function startGame() {
   scoreElement.textContent = "分數：0";
   finalMessageElement.textContent = ""; // 清空結束訊息
 
-  // ✅ 一開始按下「開始遊戲」就把開場白藏起來
+  // 一開始按下「開始遊戲」就把開場白藏起來
   if (descriptionElement) {
     descriptionElement.style.display = "none";
   }
@@ -166,8 +176,11 @@ function showQuestion() {
     currentQuestionIndex + 1
   } 題 / 共 ${questions.length} 題`;
 
-  // 動態產生選項按鈕
-  questionData.answers.forEach((answer) => {
+  // ✅ 這裡把選項做「隨機排序」
+  const shuffledAnswers = shuffleArray(questionData.answers);
+
+  // 動態產生選項按鈕（用洗過順序的陣列）
+  shuffledAnswers.forEach((answer) => {
     const button = document.createElement("button");
     button.textContent = answer.text;
     button.classList.add("answer-btn");
