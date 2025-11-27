@@ -10,14 +10,13 @@
     <div class="app">
       <h1>公隆新手村快速通關問答！</h1>
 
-      <p id="description">
-        請憑您對簡報的印象回答下列問題，快速融入我們的 Kelly Family 吧！
-        （本測驗共 10 題，7 分以上視為通關，不列入正式考核，請放心作答 😊）
-      </p>
-
-      <!-- 開始畫面 -->
+      <!-- 開始畫面（開場白只放在這裡） -->
       <div id="start-screen">
-        <p>按下開始進入測驗！</p>
+        <p id="description">
+          請憑您對簡報的印象回答下列問題，快速融入我們的 Kelly Family 吧！<br />
+          （本測驗共 10 題，7 分以上視為通關，不列入正式考核，請放心作答 😊）
+        </p>
+        <p>準備好了就按下方按鈕開始測驗！</p>
         <button id="start-btn">開始遊戲</button>
       </div>
 
@@ -42,7 +41,6 @@
       <div id="end-screen" class="hidden">
         <h2>遊戲結束！</h2>
         <p id="final-score">你的分數是：0</p>
-        <!-- 新增：結束訊息（通關 / 加油） -->
         <p id="final-message"></p>
         <button id="restart-btn">再玩一次</button>
       </div>
