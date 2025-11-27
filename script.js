@@ -28,7 +28,8 @@ const questions = [
     ],
   },
   {
-    question: "4. 公隆集團強調的企業文化「HIS」，其中的「I」代表的是哪一種核心精神？",
+    question:
+      "4. 公隆集團強調的企業文化「HIS」，其中的「I」代表的是哪一種核心精神？",
     answers: [
       { text: "Integrity（誠信）", correct: false },
       { text: "Innovation（創新）", correct: true },
@@ -90,7 +91,7 @@ const questions = [
   },
   {
     question:
-      "10. 員工需服務滿多久才能領取中秋與端午的「佳節禮金」？",
+      "10. 员工需服务滿多久才能領取中秋與端午的「佳節禮金」？",
     answers: [
       { text: "到職當月即可領取", correct: false },
       { text: "年資滿三個月以上", correct: true },
@@ -100,7 +101,7 @@ const questions = [
   },
 ];
 
-// 取得畫面元素
+// ---- 取得畫面元素 ----
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const endScreen = document.getElementById("end-screen");
@@ -114,12 +115,14 @@ const answerButtons = document.getElementById("answer-buttons");
 const questionNumberElement = document.getElementById("question-number");
 const scoreElement = document.getElementById("score");
 const finalScoreElement = document.getElementById("final-score");
+const finalMessageElement = document.getElementById("final-message");
 
+// ---- 狀態變數 ----
 let currentQuestionIndex = 0;
 let score = 0;
 let answered = false;
 
-// 綁定事件
+// ---- 事件綁定 ----
 startBtn.addEventListener("click", startGame);
 restartBtn.addEventListener("click", startGame);
 nextBtn.addEventListener("click", () => {
@@ -127,11 +130,12 @@ nextBtn.addEventListener("click", () => {
   showQuestion();
 });
 
-// 開始遊戲
+// ---- 開始遊戲 ----
 function startGame() {
   currentQuestionIndex = 0;
   score = 0;
   scoreElement.textContent = "分數：0";
+  finalMessageElement.textContent = ""; // 清空結束訊息
 
   startScreen.classList.add("hidden");
   endScreen.classList.add("hidden");
@@ -140,7 +144,7 @@ function startGame() {
   showQuestion();
 }
 
-// 顯示題目
+// ---- 顯示題目 ----
 function showQuestion() {
   resetState();
 
@@ -154,6 +158,7 @@ function showQuestion() {
     currentQuestionIndex + 1
   } 題 / 共 ${questions.length} 題`;
 
+  // 動態產生選項按鈕
   questionData.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.textContent = answer.text;
@@ -166,17 +171,18 @@ function showQuestion() {
   });
 }
 
-// 重置狀態
+// ---- 清理上一題狀態 ----
 function resetState() {
   answered = false;
   nextBtn.classList.add("hidden");
 
+  // 清空選項按鈕
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
   }
 }
 
-// 選擇答案
+// ---- 當玩家選擇答案 ----
 function selectAnswer(e) {
   if (answered) return;
   answered = true;
@@ -192,6 +198,7 @@ function selectAnswer(e) {
     selectedButton.classList.add("wrong");
   }
 
+  // 顯示正確答案，並鎖住按鈕
   Array.from(answerButtons.children).forEach((button) => {
     if (button.dataset.correct === "true") {
       button.classList.add("correct");
@@ -202,9 +209,21 @@ function selectAnswer(e) {
   nextBtn.classList.remove("hidden");
 }
 
-// 結束畫面
+// ---- 結束遊戲 ----
 function endGame() {
   quizScreen.classList.add("hidden");
   endScreen.classList.remove("hidden");
+
+  // 顯示分數
   finalScoreElement.textContent = `你的分數是：${score} / ${questions.length}`;
+
+  // 通關線
+  const passLine = 7;
+
+  if (score >= passLine) {
+    finalMessageElement.textContent = "恭喜通關！已經掌握公司基礎概念 🎉";
+  } else {
+    finalMessageElement.textContent =
+      "沒關係，第一次本來就容易漏掉，建議再回去看簡報或向 HR 詢問 🙂";
+  }
 }
