@@ -91,7 +91,7 @@ const questions = [
   },
   {
     question:
-      "10. 员工需服务滿多久才能領取中秋與端午的「佳節禮金」？",
+      "10. 員工需服務滿多久才能領取中秋與端午的「佳節禮金」？",
     answers: [
       { text: "到職當月即可領取", correct: false },
       { text: "年資滿三個月以上", correct: true },
@@ -117,6 +117,9 @@ const scoreElement = document.getElementById("score");
 const finalScoreElement = document.getElementById("final-score");
 const finalMessageElement = document.getElementById("final-message");
 
+// 新增：開場白那段文字
+const descriptionElement = document.getElementById("description");
+
 // ---- 狀態變數 ----
 let currentQuestionIndex = 0;
 let score = 0;
@@ -136,6 +139,11 @@ function startGame() {
   score = 0;
   scoreElement.textContent = "分數：0";
   finalMessageElement.textContent = ""; // 清空結束訊息
+
+  // ✅ 一開始按下「開始遊戲」就把開場白藏起來
+  if (descriptionElement) {
+    descriptionElement.style.display = "none";
+  }
 
   startScreen.classList.add("hidden");
   endScreen.classList.add("hidden");
@@ -213,6 +221,11 @@ function selectAnswer(e) {
 function endGame() {
   quizScreen.classList.add("hidden");
   endScreen.classList.remove("hidden");
+
+  // 保險起見：結束時再把開場白關一次
+  if (descriptionElement) {
+    descriptionElement.style.display = "none";
+  }
 
   // 顯示分數
   finalScoreElement.textContent = `你的分數是：${score} / ${questions.length}`;
